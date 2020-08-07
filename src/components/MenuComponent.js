@@ -7,21 +7,32 @@ class Menu extends Component{
     super(props);
 
     this.state={
-      selectedDish:null
+      selectedDish:null,
+      comments:null
     };
-
-    console.log("Menu Component constructor is invoked");
-  }
-
-  componentDidMount()
-  {
-    console.log("Menu Component componentDidMount is invoked");
-
   }
 
   onDishSelect(dish)
   {
-    this.setState({selectedDish:dish});
+    this.setState({selectedDish:dish,comments:dish.comments});
+  }
+
+  renderComment(comments)
+  {
+    if(comments != null)
+    {
+      return(
+        <div>
+          
+        </div>
+      );
+    }
+    else
+    {
+      return (
+        <div></div>
+      );
+    }
   }
 
   renderDish(dish)
@@ -29,13 +40,20 @@ class Menu extends Component{
     if(dish != null)
     {
       return (
-        <Card>
-          <CardImg width="100%" src={dish.image} alt={dish.name} />
-          <CardBody>
-              <CardTitle>{dish.name}</CardTitle>
-              <CardText>{dish.description}</CardText>
-          </CardBody>
-        </Card>
+        <div>
+
+            <Card>
+              <CardImg width="100%" src={dish.image} alt={dish.name} />
+              <CardBody>
+                  <CardTitle>{dish.name}</CardTitle>
+                  <CardText>{dish.description}</CardText>
+              </CardBody>
+            </Card>
+
+
+        </div>
+
+
       );
     }
     else
@@ -65,8 +83,6 @@ class Menu extends Component{
       )
     });
 
-    console.log("Menu Component render is invoked");
-
     return (
       <div className="container">
         <div className="row">
@@ -74,7 +90,12 @@ class Menu extends Component{
         </div>
 
         <div className="row">
-          {this.renderDish(this.state.selectedDish)}
+          <div className="col-12 col-md-5 m-1">
+            {this.renderDish(this.state.selectedDish)}
+          </div>
+          <div  className="col-12 col-md-7 m-1" >
+            {this.renderComment(this.state.comments)}
+          </div>
         </div>
       </div>
     );
